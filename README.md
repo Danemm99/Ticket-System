@@ -5,11 +5,25 @@
 
 **1. Clone the repository to your folder:**
 ```commandline
-git clone https://github.com/geeeeenccc/Building-damage-estimation-GustLuck.git .
+git clone https://github.com/Danemm99/Ticket_System.git .
 ```
 
 **2. Install dependencies:**
 
 ```commandline
 pip install -r requirements
+```
+
+## Create file .env
+
+Create file .env and write there your POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DB, POSTGRES_HOST, POSTGRES_PORT and SECRET_KEY.
+
+## Run project
+
+```commandline
+set FLASK_APP=app.py
+```
+
+```commandline
+flask db upgrade
 ```
