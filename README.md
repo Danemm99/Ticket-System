@@ -21,9 +21,13 @@ Create file .env and write there your POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES
 ## Run project
 
 ```commandline
+flask db upgrade
+```
+
+```commandline
 set FLASK_APP=app.py
 ```
 
 ```commandline
-flask db upgrade
+python app.py
 ```
