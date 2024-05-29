@@ -68,8 +68,12 @@ def edit_ticket(group_id, ticket_id):
     ticket = Ticket.query.get_or_404(ticket_id)
 
     if current_user.role != 'admin':
-        if ticket.user_id != current_user.id:
-            abort(403)
+        if current_user.role == 'analyst':
+            if ticket.user_id != current_user.id:
+                abort(403)
+        else:
+            if ticket.group_id != current_user.group_id:
+                abort(403)
 
     if current_user.role == 'analyst':
         form = EditTicketStatusForm()
