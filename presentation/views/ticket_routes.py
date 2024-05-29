@@ -16,6 +16,9 @@ ticket = Blueprint('ticket_routes', __name__)
 @login_required
 @not_analyst_required
 def create_ticket():
+    if current_user.group_id is None:
+        abort(403)
+    
     form = TicketForm()
 
     if current_user.role == 'admin':
@@ -38,7 +41,7 @@ def create_ticket():
     return render_template('tickets/create_ticket.html', form=form)
 
 
-@ticket.route('/home/groups/<int:group_id>/tickets>', methods=['GET'])
+@ticket.route('/home/groups/<int:group_id>/tickets', methods=['GET'])
 @login_required
 @not_analyst_required
 def view_tickets(group_id):
