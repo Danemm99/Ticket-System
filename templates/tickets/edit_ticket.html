@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Ticket</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .form-group .error {
+            color: red;
+            font-size: 0.9em;
+        }
+        .form-group textarea {
+            height: 100px;
+            resize: vertical;
+        }
+        .form-actions {
+            text-align: center;
+        }
+        .form-actions button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .form-actions button:hover {
+            background-color: #0056b3;
+        }
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #007bff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .back-link:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Edit Ticket</h1>
+    <form method="post">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            {{ form.status.label }}
+            {{ form.status() }}
+            {% for error in form.status.errors %}
+                <div class="error">{{ error }}</div>
+            {% endfor %}
+        </div>
+        {% if current_user.role != 'analyst' %}
+        <div class="form-group">
+            {{ form.note.label }}
+            {{ form.note() }}
+            {% for error in form.note.errors %}
+                <div class="error">{{ error }}</div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        <div class="form-actions">
+            {{ form.submit() }}
+        </div>
+    </form>
+    {% if current_user.role != 'analyst' %}
+        <a class="back-link" href="{{ url_for('group_routes.view_group', group_id=ticket.group_id) }}">Back to Group</a>
+    {% endif %}
+    {% if current_user.role == 'analyst' %}
+        <a class="back-link" href="{{ url_for('ticket_routes.view_my_tickets') }}">Back to Tickets</a>
+    {% endif %}
+</body>
+</html>
+
+
+

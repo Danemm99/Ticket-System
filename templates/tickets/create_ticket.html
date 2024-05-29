@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Ticket</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            margin-top: 20px;
+        }
+        p {
+            margin-bottom: 15px;
+        }
+        label {
+            font-weight: bold;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        span {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Create Ticket</h1>
+        <form method="post">
+            {{ form.hidden_tag() }}
+            <p>
+                {{ form.note.label }}<br>
+                {{ form.note(size=32) }}<br>
+                {% for error in form.note.errors %}
+                    <span>[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <p>
+                {{ form.status.label }}<br>
+                {{ form.status() }}<br>
+                {% for error in form.status.errors %}
+                    <span>[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <p>
+                {{ form.group.label }}<br>
+                {{ form.group() }}<br>
+                {% for error in form.group.errors %}
+                    <span>[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <p>{{ form.submit() }}</p>
+        </form>
+        <a href="{{ url_for('user_routes.home') }}"><button>Back to Home</button></a>
+    </div>
+</body>
+</html>
+

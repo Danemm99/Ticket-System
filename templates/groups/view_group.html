@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Group Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        header, main, footer {
+            text-align: center;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        li:last-child {
+            border-bottom: none;
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        a:hover {
+            color: #0056b3;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 20px 0;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+        .footer {
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>{{ group.name }}</h1>
+        </header>
+        <main>
+            <a href="{{ url_for('user_routes.view_managers', group_id=group.id) }}"><p>Managers</p></a>
+            <a href="{{ url_for('user_routes.view_analysts', group_id=group.id) }}"><p>Analysts</p></a>
+
+            <a href="{{ url_for('ticket_routes.view_tickets', group_id=group.id) }}"><p>Tickets</p></a>
+
+            {% if current_user.role == 'admin' %}
+                <a href="{{ url_for('group_routes.edit_group', group_id=group.id) }}" class="button">Edit Group</a>
+            {% endif %}
+            <a href="{{ url_for('group_routes.view_all_groups') }}" class="button">Back to Groups</a>
+        </main>
+        <footer class="footer">
+            <p>&copy; 2024 Your Company</p>
+        </footer>
+    </div>
+</body>
+</html>
